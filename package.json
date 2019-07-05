@@ -1,0 +1,19 @@
+{
+  "name": "podcast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 👍"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kileras/podcast.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kileras/podcast/issues"
+  },
+  "homepage": "https://github.com/kileras/podcast#readme"
+}
