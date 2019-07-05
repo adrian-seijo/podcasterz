@@ -1,0 +1,11 @@
+{
+  "short_name": "PodcasterZ",
+  "name": "PodcasterZ",
+  "icons": [
+  ],
+  "start_url": "/",
+  "background_color": "#4676b9",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#4676b9"
+}
