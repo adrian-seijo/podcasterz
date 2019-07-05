@@ -12,7 +12,6 @@ module.exports = {
         'ecmaVersion': 2018,
         'sourceType': 'module',
     },
-    'plugins': [],
     'rules': {
         // Fixes for eslint weirdness
         'no-restricted-globals': ['error', 'event'],
