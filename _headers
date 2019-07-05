@@ -1,0 +1,5 @@
+/*
+	# Security headers
+	# Allow only things form our origin except for images and media
+	Content-Security-Policy: default-src 'self'; img-src *; media-src *
+	Content-Security-Policy: base-uri 'self'
