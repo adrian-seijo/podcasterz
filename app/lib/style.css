@@ -28,8 +28,8 @@ h1 a {
 
 h1 {
 	border-bottom: 1px solid var(--border-color);
-	padding-bottom: 14px;
-	margin-bottom: 14px;
+	padding-bottom: 15px;
+	margin-bottom: 25px;
 }
 
 h2,
@@ -58,7 +58,7 @@ input[type="search"] {
 
 .podcast-list {
 	display: grid;
-	grid-column-gap: 10px;
+	grid-column-gap: 30px;
 	grid-row-gap: 15px;
 	grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 	list-style-type: none;

@@ -94,7 +94,7 @@ module.exports = {
         'import/no-mutable-exports': 'error',
         'import/first': 'error',
         'import/no-duplicates': 'error',
-        'import/extensions': ['error', {'js': 'never'}],
+        'import/extensions': ['error', {'js': 'always'}],
         'import/order': 'error',
         'import/newline-after-import': 'error',
         'import/max-dependencies': ['error', {'max': 20}],
