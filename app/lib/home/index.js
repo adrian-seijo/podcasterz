@@ -30,9 +30,9 @@ export const load = async () => {
 
 	let podcasts = getLoadedPodcasts();
 
-	if (!podcasts) {
-		podcasts = await getTopPodcasts();
-	}
+	if (podcasts) return;
+
+	podcasts = await getTopPodcasts();
 	const fragment = podcasts.reduce(createTile, document.createDocumentFragment());
 
 	const list = document.querySelector('#home .podcast-list');

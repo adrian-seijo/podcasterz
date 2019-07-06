@@ -2,6 +2,7 @@ import {formatPodcastEntry} from './format.js';
 
 const ITUNES_TOP_URL = 'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json';
 const ITUNES_PODCAST_URL = 'https://itunes.apple.com/lookup?entity=podcast&id=';
+const FEED_BASE_URL = '/.netlify/functions/feed?url=';
 
 let podcasts = null;
 
@@ -42,11 +43,7 @@ export const getPodcastDetails = async (id) => {
 
 	const [{feedUrl}] = results;
 
-	const feedData = await fetch(feedUrl, {
-		headers: {
-			accept: 'application/xhtml+xml',
-		}
-	});
-	const xml = await feedData.xml();
+	const feedData = await fetch(FEED_BASE_URL + encodeURIComponent(feedUrl));
+	const xml = await feedData.text();
 	console.log(xml);
 };
