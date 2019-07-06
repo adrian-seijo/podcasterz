@@ -4,6 +4,7 @@ const template = document.querySelector('#podcast-tile');
 
 export const PATH = /^\/$/;
 export const ID = 'home';
+export const SECTION = 'home';
 
 const createTile = (fragment, data) => {
 	const tile = document.importNode(template.content, true);
@@ -28,10 +29,19 @@ export const getLoadedPoscast = () => {
 
 export const load = async () => {
 
-	let podcasts = getLoadedPodcasts();
+	// Hide the current section
+	const visibleSection = document.querySelector('section.visible');
+	if (visibleSection) visibleSection.classList.remove('visible');
 
+	const homeSection = document.querySelector('section#home');
+	homeSection.classList.add('visible');
+
+	// If we have podcast we don't load them for now, we will handle this better later
+	// with serviceworker plus better transitions
+	let podcasts = getLoadedPodcasts();
 	if (podcasts) return;
 
+	// If we don't have the podcast then we just go ahead and grab them and populate the section with them
 	podcasts = await getTopPodcasts();
 	const fragment = podcasts.reduce(createTile, document.createDocumentFragment());
 

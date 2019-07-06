@@ -2,6 +2,13 @@ const getLabelValue = (item) => {
 	return item && item.label ? item.label : item;
 };
 
+const getDataFromElement = (doc, selector, attribute = null) => {
+	const element = doc.querySelector(selector);
+	if (!element) return null;
+	if (!attribute) return element.textContent || null;
+	return element.getAttribute(attribute) || null;
+};
+
 export const formatPodcastEntry = (entry) => {
 	const {
 		id: {
@@ -36,4 +43,25 @@ export const formatPodcastEntry = (entry) => {
 		res[key] = getLabelValue(value);
 		return res;
 	}, {});
+};
+
+export const getFeedEpisodes = (feed) => {
+	return Array.from(feed.querySelectorAll('item'))
+		.map((item) => {
+
+			const title = getDataFromElement(item, 'title');
+			const episode = getDataFromElement(item, '*|episode');
+			const duration = getDataFromElement(item, '*|duration');
+			const date = getDataFromElement(item, 'pubDate');
+			const file = getDataFromElement(item, 'enclosure', 'url');
+
+			return {
+				title,
+				episode,
+				duration,
+				date: date ? new Date(date) : null,
+				file
+			};
+		})
+		.sort((a, b) => b.date - a.date);
 };

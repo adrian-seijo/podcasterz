@@ -1,16 +1,9 @@
+import views  from './views/index.js';
 
-import * as home from './home/index.js';
-import * as podcast from './podcast/index.js';
-import * as episode from './episode/index.js';
+let currentView = null;
 
-const views = [
-	home,
-	podcast,
-	episode
-];
-
-export const changeView = () => {
-	const {pathname, search} = window.location;
+export const updateView = () => {
+	const {pathname} = window.location;
 
 	let match;
 	const view = views.find(({PATH}) => {
@@ -18,24 +11,24 @@ export const changeView = () => {
 		return match;
 	});
 
-	const current = document.querySelector('section.visible');
+	if (currentView && currentView.ID === view.ID) return;
 
-	if (current && current.id === view.ID) return;
-	if (current) current.classList.remove('visible');
+	// const current = document.querySelector('section.visible');
+	//
+	// if (current && current.id === view.ID) return;
+	// if (current) current.classList.remove('visible');
+	//
+	// if (!view) {
+	// 	const section = document.querySelector(`section#notfound`);
+	// 	section.classList.add('visible');
+	// 	return;
+	// }
 
-	if (!view) {
-		const section = document.querySelector(`section#notfound`);
-		section.classList.add('visible');
-		return;
-	}
+	// const section = document.querySelector(`section#${view.ID}`);
+	// section.classList.add('visible');
 
-	const section = document.querySelector(`section#${view.ID}`);
-	section.classList.add('visible');
-
-	view.load({
-		match,
-		params: new URLSearchParams(search)
-	});
+	view.load({match, currentView});
+	currentView = view;
 };
 
 document.body.addEventListener('click', (event) => {
@@ -46,9 +39,9 @@ document.body.addEventListener('click', (event) => {
 	const {href} = event.target;
 	history.pushState({}, event.target.textContent, href);
 
-	changeView();
+	updateView();
 });
 
-window.addEventListener('popstate', changeView);
+window.addEventListener('popstate', updateView);
 
-window.addEventListener('load', changeView);
+updateView();

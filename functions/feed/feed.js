@@ -15,7 +15,7 @@ const handler = async (event) => {
 		return {
 			statusCode: 200,
 			headers: {
-				'Content-Type': 'application/xml'
+				'Content-Type': 'text/xml'
 			},
 			body: data
 		};

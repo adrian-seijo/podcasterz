@@ -19,7 +19,7 @@ main {
 	box-sizing: border-box;
 }
 
-header {
+main > header {
 	background: white;
 	box-sizing: border-box;
 	left: 0;
@@ -121,6 +121,26 @@ section.visible {
 	font-size: 0.9rem;
 	margin: 0 0 4px;
 	padding: 0;
+}
+
+#podcast.visible {
+	display: grid;
+	grid-column-gap: 30px;
+	grid-row-gap: 15px;
+	grid-template-columns: 200px auto;
+}
+
+aside {
+	border-radius: 4px;
+	box-shadow: 0px 2px 3px 2px #CCC;
+	width: 200px;
+}
+
+aside img {
+	height: auto;
+	padding: 20px;
+	box-sizing: border-box;
+	width: 100%;
 }
 
 
