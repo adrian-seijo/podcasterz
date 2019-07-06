@@ -1,2 +1,2 @@
 
-import './util/router.js';
+import './router.js';
