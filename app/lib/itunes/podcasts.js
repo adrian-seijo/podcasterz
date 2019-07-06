@@ -32,10 +32,6 @@ export const getPodcastDetails = async (id) => {
 	const podcastData = getPodcastById(id);
 	if (!podcastData) throw new Error('Podcast not found in top 100');
 
-	const result = {
-		...podcastData
-	};
-
 	const res = await fetch(ITUNES_PODCAST_URL + id);
 	const {resultCount, results} = await res.json();
 

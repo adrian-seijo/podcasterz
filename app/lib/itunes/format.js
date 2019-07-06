@@ -37,10 +37,3 @@ export const formatPodcastEntry = (entry) => {
 		return res;
 	}, {});
 };
-
-export const formatPodcastDetail = (detail) => {
-
-	const {
-		collectionName: name
-	} = details
-}
