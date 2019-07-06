@@ -1,20 +1,15 @@
-import {formatPodcastEntry} from '../util/itunes.js';
-
-const ITUNES_URL = 'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json';
+import {getLoadedPodcasts, getTopPodcasts} from '../itunes/podcasts.js';
 
 const template = document.querySelector('#podcast-tile');
 
 export const PATH = /^\/$/;
 export const ID = 'home';
 
-const createTile = (fragment, entry) => {
-
-	const data = formatPodcastEntry(entry);
-
+const createTile = (fragment, data) => {
 	const tile = document.importNode(template.content, true);
 
 	const link = tile.querySelector('h2 a');
-	link.href = '/podcast/' + data.id;
+	link.href = '/podcast/' + data.id + '/';
 	link.textContent = data.name;
 
 	const author = tile.querySelector('.author');
@@ -27,12 +22,18 @@ const createTile = (fragment, entry) => {
 	return fragment;
 };
 
-export const load = async () => {
-	const res = await fetch(ITUNES_URL);
-	const {feed} = await res.json();
-	const {entry: entries} = feed;
+export const getLoadedPoscast = () => {
 
-	const fragment = entries.reduce(createTile, document.createDocumentFragment());
+};
+
+export const load = async () => {
+
+	let podcasts = getLoadedPodcasts();
+
+	if (!podcasts) {
+		podcasts = await getTopPodcasts();
+	}
+	const fragment = podcasts.reduce(createTile, document.createDocumentFragment());
 
 	const list = document.querySelector('#home .podcast-list');
 	list.innerHTML = '';

@@ -19,6 +19,8 @@ export const changeView = () => {
 	});
 
 	const current = document.querySelector('section.visible');
+
+	if (current && current.id === view.ID) return;
 	if (current) current.classList.remove('visible');
 
 	if (!view) {
