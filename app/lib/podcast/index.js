@@ -1,4 +1,5 @@
 
+export const PATH = /^\/podcast\/(\w\d)+$/;
 export const ID = 'podcast';
 
 export const load = () => {

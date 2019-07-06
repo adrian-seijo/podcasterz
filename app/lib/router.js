@@ -4,43 +4,36 @@ import * as podcast from './podcast/index.js';
 import * as episode from './episode/index.js';
 
 const views = [
-	{
-		key: '',
-		view: home
-	},
-	{
-		key: 'podcast',
-		view: podcast
-	},
-	{
-		key: 'episode',
-		view: episode
-	},
+	home,
+	podcast,
+	episode
 ];
 
 export const changeView = () => {
 	const {pathname, search} = window.location;
 
-	const params = new URLSearchParams(search);
-	const paths = pathname.split('/').slice(1);
-
-	const [basePath] = paths;
-
-	const route = views.find(({key}) => key === basePath);
+	let match;
+	const view = views.find(({PATH}) => {
+		match = pathname.match(PATH);
+		return match;
+	});
 
 	const current = document.querySelector('section.visible');
 	if (current) current.classList.remove('visible');
 
-	if (!route) {
+	if (!view) {
 		const section = document.querySelector(`section#notfound`);
 		section.classList.add('visible');
 		return;
 	}
 
-	const section = document.querySelector(`section#${route.view.ID}`);
+	const section = document.querySelector(`section#${view.ID}`);
 	section.classList.add('visible');
 
-	route.view.load(params);
+	view.load({
+		match,
+		params: new URLSearchParams(search)
+	});
 };
 
 document.body.addEventListener('click', (event) => {
