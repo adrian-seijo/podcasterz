@@ -16,9 +16,11 @@ const get = (url, options = {}) => new Promise((resolve, reject) => {
 
 	const reqUrl = parse(url);
 
+	const {asJSON, ...config} = options;
+
 	const reqOptions = {
 		...reqUrl,
-		...options,
+		...config,
 		method: 'get',
 	};
 
@@ -36,37 +38,21 @@ const get = (url, options = {}) => new Promise((resolve, reject) => {
 		res.setEncoding('utf8');
 		res.on('error', reject);
 		res.on('data', (chunk) => data += chunk);
-		res.on('end', () => resolve({data, res}));
+		res.on('end', () => {
+			if (!asJSON) {
+				resolve({data, res});
+				return;
+			}
+
+			try {
+				resolve({data: JSON.parse(data), res});
+			} catch (e) {
+				reject(e);
+			}
+		});
 	}).on('error', reject);
 
 	req.end();
 });
 
-const handler = async (event) => {
-
-	try {
-		const {queryStringParameters} = event;
-		const {url} = queryStringParameters;
-
-		console.log('Do a request to url', url);
-
-		const {data} = await get(url);
-		console.log(data);
-
-		return {
-			statusCode: 200,
-			headers: {
-				'Content-Type': 'application/xml'
-			},
-			body: data
-		};
-
-	} catch (e) {
-		return {
-			statusCode: 500,
-			body: e
-		};
-	}
-};
-
-exports.handler = handler;
+module.exports = get;
