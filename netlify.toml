@@ -9,7 +9,7 @@
 	[headers.values]
 		X-Frame-Options = "DENY"
 		X-XSS-Protection = "1; mode=block"
-		Content-Security-Policy = "default-src 'self'; connect-src 'self' https://itunes.apple.com/; img-src *; media-src *; base-uri 'self'"
+		Content-Security-Policy = "default-src 'self'; connect-src 'self'; img-src *; media-src *; base-uri 'self'"
 
 [[redirects]]
 	from = "/*"
