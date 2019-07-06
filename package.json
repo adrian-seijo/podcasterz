@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"lint": "eslint ./app",
+		"lambdas": "netlify-lambda build src",
 		"build": "npm run lint"
 	},
 	"repository": {
