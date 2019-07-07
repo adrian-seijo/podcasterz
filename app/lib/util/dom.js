@@ -20,6 +20,17 @@ export const updateElement = (selector, attrs, root = document) => {
 };
 
 /**
+ * Given an list of selector and attributes and optionally a root element find the lements for each selector
+ * and update the properties with the values received
+ * @param  {Array.<String, Object>} list
+ * @param  {HTMLElement?} 			root=document
+
+ */
+export const updateElements = (list, root = document) => {
+	list.forEach(({selector, attrs}) => updateElement(selector, attrs, root));
+};
+
+/**
  * Given a template, a target node and a bunch of selectors and attbriutes clone the template, updateit based
  * on the received data and append it to the target. This method will return the target node.
  * @param  {HTMLTemplateElement} 		template

@@ -1,5 +1,9 @@
-import {updateElement} from '../util/dom.js';
+import {updateElements} from '../util/dom.js';
 
+/**
+ * Given a podcast update the aside with its details
+ * @param  {Object} podcast
+ */
 export const renderPodcastDetail = (podcast) => {
 
 	const {
@@ -9,8 +13,10 @@ export const renderPodcastDetail = (podcast) => {
 		summary
 	} = podcast;
 
-	updateElement('aside img', {src: image});
-	updateElement('aside h2', {textContent: title});
-	updateElement('aside .author', {textContent: author});
-	updateElement('aside .summary', {textContent: summary});
+	updateElements([
+		{selector: 'aside img', attrs: {src: image}},
+		{selector: 'aside h2', attrs: {textContent: title}},
+		{selector: 'aside .author', attrs: {textContent: author}},
+		{selector: 'aside .summary', attrs: {textContent: summary}},
+	]);
 };
