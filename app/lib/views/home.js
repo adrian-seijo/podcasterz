@@ -18,6 +18,7 @@ const createTile = (fragment, data) => {
 
 	const img = tile.querySelector('img');
 	img.src = data.image;
+	img.alt = data.name + ' logo';
 
 	fragment.append(tile);
 	return fragment;

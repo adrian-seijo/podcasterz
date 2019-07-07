@@ -59,7 +59,7 @@ form {
 	text-align: right;
 }
 
-label {
+label > span {
 	display: none;
 }
 

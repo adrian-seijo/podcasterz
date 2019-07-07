@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8"/>
 	<title>PodcasterZ</title>
-	<meta name="theme-color" content="#4676b9">
+	<meta name="theme-color" content="#4676b9" />
+	<meta name="viewport" content="with=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="/lib/style.css" />
 	<link rel="shortcut icon" href="/assets/podcasterz.png" type="image/x-icon" />
 </head>
@@ -17,8 +18,10 @@
 
 		<section id="home">
 			<form action="/" method="get">
-				<label for="search">Filter podcasts</label>
-				<input id="search" name="q" type="search" placeholder="Filter podcasts..." />
+				<label>
+					<span>Filter podcasts</span>
+					<input id="search" name="q" type="search" placeholder="Filter podcasts..." />
+				</label>
 			</form>
 
 			<ul class="podcast-list"></ul>
