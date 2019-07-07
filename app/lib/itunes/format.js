@@ -16,7 +16,6 @@ export const formatPodcastEntry = (entry) => {
 				'im:id': id
 			}
 		},
-		'im:name': name,
 		title,
 		summary,
 		'im:artist': author,
@@ -34,7 +33,6 @@ export const formatPodcastEntry = (entry) => {
 
 	return Object.entries({
 		id,
-		name,
 		title,
 		summary,
 		author,
@@ -45,8 +43,9 @@ export const formatPodcastEntry = (entry) => {
 	}, {});
 };
 
-export const getFeedEpisodes = (feed) => {
-	return Array.from(feed.querySelectorAll('item'))
+export const getFeedData = (feed) => {
+
+	const episodes = Array.from(feed.querySelectorAll('item'))
 		.map((item) => {
 
 			const title = getDataFromElement(item, 'title');
@@ -64,4 +63,16 @@ export const getFeedEpisodes = (feed) => {
 			};
 		})
 		.sort((a, b) => b.date - a.date);
+
+	const podcast = {
+		title: getDataFromElement(feed, 'title'),
+		author: getDataFromElement(feed, '*|author'),
+		summary: getDataFromElement(feed, '*|summary'),
+		image: getDataFromElement(feed, 'image url'),
+		episodes
+	};
+
+	console.log('>>>', podcast);
+
+	return podcast;
 };

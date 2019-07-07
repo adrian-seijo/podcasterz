@@ -11,7 +11,7 @@ const createTile = (fragment, data) => {
 
 	const link = tile.querySelector('h2 a');
 	link.href = '/podcast/' + data.id + '/';
-	link.textContent = data.name;
+	link.textContent = data.title;
 
 	const author = tile.querySelector('.author');
 	author.textContent = data.author;
@@ -23,10 +23,6 @@ const createTile = (fragment, data) => {
 
 	fragment.append(tile);
 	return fragment;
-};
-
-export const getLoadedPoscast = () => {
-
 };
 
 export const load = async () => {

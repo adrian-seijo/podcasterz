@@ -1,4 +1,4 @@
-import {formatPodcastEntry, getFeedEpisodes} from './format.js';
+import {formatPodcastEntry, getFeedData} from './format.js';
 
 const ITUNES_TOP_URL = '/.netlify/functions/top-podcasts';
 const ITUNES_PODCAST_URL = '/.netlify/functions/podcast-details?id=';
@@ -7,8 +7,6 @@ const FEED_BASE_URL = '/.netlify/functions/feed?url=';
 const parser = new DOMParser();
 
 let podcasts = null;
-
-const getPodcastById = (id) => podcasts.find((podcast) => podcast.id === id);
 
 export const getLoadedPodcasts = () => podcasts;
 
@@ -29,11 +27,6 @@ export const getTopPodcasts = async () => {
 export const getPodcastDetails = async (id) => {
 	if (!id) throw new Error('Missing id for getPodcastData');
 
-	if (!podcasts) await getTopPodcasts();
-
-	const podcastData = getPodcastById(id);
-	if (!podcastData) throw new Error('Podcast not found in top 100');
-
 	const res = await fetch(ITUNES_PODCAST_URL + id);
 	const {resultCount, results} = await res.json();
 
@@ -46,10 +39,5 @@ export const getPodcastDetails = async (id) => {
 
 	const doc = parser.parseFromString(body, 'text/xml');
 
-	const episodes = getFeedEpisodes(doc);
-
-	return {
-		...podcastData,
-		episodes
-	};
+	return getFeedData(doc);
 };
