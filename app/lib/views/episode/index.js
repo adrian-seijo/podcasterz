@@ -25,3 +25,8 @@ export const enter = async ({match}) => {
 
 	render(podcast, episode);
 };
+
+export const leave = () => {
+	const audio = document.querySelector('audio');
+	if (!audio.paused) audio.pause();
+};
