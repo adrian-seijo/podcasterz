@@ -1,4 +1,4 @@
-import {getLoadedPodcast} from '../../itunes/podcasts.js';
+import {getLoadedPodcast} from '../../actions/podcasts.js';
 import {showSection} from '../../util/nav.js';
 import render from './render.js';
 
