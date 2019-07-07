@@ -106,10 +106,12 @@ section.visible {
 .podcast-list li {
 	border-radius: var(--border-radius);
 	box-shadow: var(--shadow);
+	height: fit-content;
 	margin: 70px 4px;
 	padding: 50px 20px 10px;
 	position: relative;
 	text-align: center;
+	height: fit-content;
 }
 
 .podcast-list img {
@@ -145,6 +147,7 @@ section.visible {
 
 aside {
 	box-shadow: var(--shadow);
+	height: fit-content;
 	width: 200px;
 }
 
@@ -188,6 +191,7 @@ aside .summary {
 .table-wrapper {
 	box-shadow: var(--shadow);
 	padding: 20px;
+	margin-bottom: 20px;
 }
 
 

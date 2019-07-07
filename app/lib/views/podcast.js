@@ -13,7 +13,7 @@ const loadPodcastDetail = (podcast) => {
 	image.src = podcast.image;
 
 	const title = document.querySelector('aside h2');
-	title.textContent = podcast.name;
+	title.textContent = podcast.title;
 
 	const author = document.querySelector('aside .author');
 	author.textContent = podcast.author;

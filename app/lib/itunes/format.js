@@ -49,6 +49,7 @@ export const getFeedData = (feed) => {
 		.map((item) => {
 
 			const title = getDataFromElement(item, 'title');
+			const summary = getDataFromElement(item, 'summary');
 			const episode = getDataFromElement(item, '*|episode');
 			const duration = getDataFromElement(item, '*|duration');
 			const date = getDataFromElement(item, 'pubDate');
@@ -56,6 +57,7 @@ export const getFeedData = (feed) => {
 
 			return {
 				title,
+				summary,
 				episode,
 				duration,
 				date: date ? new Date(date) : null,
