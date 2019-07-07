@@ -9,25 +9,32 @@ export const SECTION = 'podcast';
 
 export const enter = async ({match}) => {
 
-	const podcastId = match[1];
-	const episodesId = match[2];
-
-	const state = getState();
-	const podcast = state.podcast && state.podcast.id === podcastId ?
-		state.podcast : await getPodcastDetails(podcastId);
-
-	if (!podcast) throw new Error('Podcast not found');
-
-	const {episodes} = podcast;
-	const episode = episodes.find(({id}) => id === episodesId);
-	if (!episode) throw new Error('Episode not found');
-
 	showSection(SECTION);
 
 	document.querySelector('#episode-details').classList.add('visible');
 	document.querySelector('#episode-list').classList.remove('visible');
 
-	render(podcast, episode);
+	const podcastId = match[1];
+	const episodesId = match[2];
+
+	const state = getState();
+
+	let podcast = state.podcast;
+
+	if (podcast && state.podcast.id === podcastId) {
+		const {default: render} = await import('./render.js');
+		await render(podcast, episodesId);
+	} else {
+
+		const [podcast, {default: render}] = await Promise.all([
+			getPodcastDetails(podcastId),
+			import('./render.js')
+		]);
+
+		if (!podcast) throw new Error('Podcast not found');
+
+		await render(podcast, episodesId);
+	}
 };
 
 export const leave = () => {

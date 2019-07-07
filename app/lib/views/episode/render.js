@@ -21,7 +21,12 @@ const renderEpisodeDetails = (episode) => {
 	]);
 };
 
-const render = (podcast, episode) => {
+const render = (podcast, episodesId) => {
+
+	const {episodes} = podcast;
+	const episode = episodes.find(({id}) => id === episodesId);
+	if (!episode) throw new Error('Episode not found');
+
 	renderPodcastDetail(podcast);
 	renderEpisodeDetails(episode);
 };
