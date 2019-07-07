@@ -21,8 +21,9 @@ export const updateView = () => {
 	}
 
 	if (currentView && currentView.ID === view.ID) return;
+	if (currentView && currentView.leave) currentView.leave({match, view});
 
-	view.load({match, currentView});
+	view.enter({match, currentView});
 	currentView = view;
 };
 

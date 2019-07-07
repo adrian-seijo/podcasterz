@@ -1,15 +1,16 @@
+import {updateElement} from '../util/dom.js';
 
-export const loadPodcastDetail = (podcast) => {
+export const renderPodcastDetail = (podcast) => {
 
-	const image = document.querySelector('aside img');
-	image.src = podcast.image;
+	const {
+		image,
+		title,
+		author,
+		summary
+	} = podcast;
 
-	const title = document.querySelector('aside h2');
-	title.textContent = podcast.title;
-
-	const author = document.querySelector('aside .author');
-	author.textContent = podcast.author;
-
-	const summary = document.querySelector('aside .summary');
-	summary.textContent = podcast.summary;
+	updateElement('aside img', {src: image});
+	updateElement('aside h2', {textContent: title});
+	updateElement('aside .author', {textContent: author});
+	updateElement('aside .summary', {textContent: summary});
 };
