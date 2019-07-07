@@ -39,5 +39,8 @@ export const getPodcastDetails = async (id) => {
 
 	const doc = parser.parseFromString(body, 'text/xml');
 
-	return getFeedData(doc);
+	return {
+		id,
+		...getFeedData(doc)
+	};
 };

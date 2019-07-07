@@ -11,21 +11,16 @@ export const updateView = () => {
 		return match;
 	});
 
+	if (!view) {
+		const visible = document.querySelector(`section.visible`);
+		if (visible) visible.classList.remove('visible');
+
+		const section = document.querySelector(`section#notfound`);
+		section.classList.add('visible');
+		return;
+	}
+
 	if (currentView && currentView.ID === view.ID) return;
-
-	// const current = document.querySelector('section.visible');
-	//
-	// if (current && current.id === view.ID) return;
-	// if (current) current.classList.remove('visible');
-	//
-	// if (!view) {
-	// 	const section = document.querySelector(`section#notfound`);
-	// 	section.classList.add('visible');
-	// 	return;
-	// }
-
-	// const section = document.querySelector(`section#${view.ID}`);
-	// section.classList.add('visible');
 
 	view.load({match, currentView});
 	currentView = view;

@@ -48,6 +48,7 @@ export const getFeedData = (feed) => {
 	const episodes = Array.from(feed.querySelectorAll('item'))
 		.map((item) => {
 
+			const id = getDataFromElement(item, 'guid');
 			const title = getDataFromElement(item, 'title');
 			const summary = getDataFromElement(item, 'summary');
 			const episode = getDataFromElement(item, '*|episode');
@@ -56,6 +57,7 @@ export const getFeedData = (feed) => {
 			const file = getDataFromElement(item, 'enclosure', 'url');
 
 			return {
+				id,
 				title,
 				summary,
 				episode,
@@ -73,8 +75,6 @@ export const getFeedData = (feed) => {
 		image: getDataFromElement(feed, 'image url'),
 		episodes
 	};
-
-	console.log('>>>', podcast);
 
 	return podcast;
 };

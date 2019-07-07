@@ -33,7 +33,10 @@ const loadEpisodeList = (podcast) => {
 		const templateElement = document.importNode(template.content, true);
 		const row = templateElement.children[0];
 
-		row.querySelector('a').textContent = episode.title;
+		const link = row.querySelector('a');
+		link.href = '/podcast/' + podcast.id + '/episode/' + episode.id + '/';
+		link.textContent = episode.title;
+
 		row.children[1].textContent = dateFormatter.format(episode.date);
 		row.children[2].textContent = episode.duration;
 
@@ -50,7 +53,6 @@ export const load = async ({match, currentView}) => {
 	const id = match[1];
 
 	const podcast = await getPodcastDetails(id);
-	console.log(podcast);
 
 	if (!currentView || currentView.ID === 'home') {
 		const home = document.querySelector('section.visible');

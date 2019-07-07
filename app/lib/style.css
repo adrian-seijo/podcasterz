@@ -143,13 +143,18 @@ section.visible {
 
 #podcast.visible {
 	display: grid;
-	grid-column-gap: 30px;
+	grid-column-gap: 50px;
 	grid-row-gap: 15px;
 	grid-template-columns: 200px auto;
 }
 
+#podcast > div {
+	display: none;
+}
 
-
+#podcast > div.visible {
+	display: block;
+}
 
 aside {
 	box-shadow: var(--shadow);
@@ -234,6 +239,29 @@ table th:nth-child(3) {
 
 table td:nth-child(3) {
 	text-align: left;
+}
+
+#episode-details {
+	box-shadow: var(--shadow);
+	height: fit-content;
+	padding: 20px;
+}
+
+#episode-details h3 {
+	margin: 0;
+	font-size: 1.3rem;
+}
+
+#episode-summary {
+	font-size: 0.9rem;
+	font-style: italic;
+	border-bottom: 1px solid var(--border-color);
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+}
+
+#episode-details audio {
+	width: 100%;
 }
 
 /* Smallish screens */
