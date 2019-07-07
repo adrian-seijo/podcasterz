@@ -1,5 +1,5 @@
 
-import {updateElement} from '../../util/dom.js';
+import {updateElements} from '../../util/dom.js';
 import {renderPodcastDetail} from '../common.js';
 
 export const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
@@ -14,9 +14,11 @@ const renderEpisodeDetails = (episode) => {
 		file
 	} = episode;
 
-	updateElement('#episode-details h3', {textContent: title});
-	updateElement('#episode-summary', {textContent: summary});
-	updateElement('audio', {src: file});
+	updateElements([
+		{selector: '#episode-details h3', attrs: {textContent: title}},
+		{selector: '#episode-summary', attrs: {textContent: summary}},
+		{selector: 'audio', attrs: {src: file}}
+	]);
 };
 
 const render = (podcast, episode) => {
