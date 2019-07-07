@@ -19,6 +19,7 @@ const createTile = (fragment, data) => {
 	const img = tile.querySelector('img');
 	img.src = data.image;
 	img.alt = data.name + ' logo';
+	img.loading = 'lazy';
 
 	fragment.append(tile);
 	return fragment;
