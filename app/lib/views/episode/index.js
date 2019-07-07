@@ -1,4 +1,5 @@
-import {getLoadedPodcast} from '../../actions/podcasts.js';
+import {getState} from '../../actions/state.js';
+import {getPodcastDetails} from '../../actions/podcasts/index.js';
 import {showSection} from '../../util/nav.js';
 import render from './render.js';
 
@@ -11,7 +12,10 @@ export const enter = async ({match}) => {
 	const podcastId = match[1];
 	const episodesId = match[2];
 
-	const podcast = await getLoadedPodcast(podcastId);
+	const state = getState();
+	const podcast = state.podcast && state.podcast.id === podcastId ?
+		state.podcast : await getPodcastDetails(podcastId);
+
 	if (!podcast) throw new Error('Podcast not found');
 
 	const {episodes} = podcast;

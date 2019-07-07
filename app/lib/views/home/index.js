@@ -1,4 +1,5 @@
-import {getLoadedPodcasts} from '../../actions/podcasts.js';
+import {getState} from '../../actions/state.js';
+import {getTopPodcasts} from '../../actions/podcasts/index.js';
 import {showSection} from '../../util/nav.js';
 import render from './render.js';
 
@@ -8,7 +9,10 @@ export const SECTION = 'home';
 
 export const enter = async () => {
 	showSection(SECTION);
-	const podcasts = await getLoadedPodcasts();
+
+	const state = getState();
+	const podcasts = state.podcasts ? state.podcasts : await getTopPodcasts();
+
 	await render(podcasts);
 };
 
