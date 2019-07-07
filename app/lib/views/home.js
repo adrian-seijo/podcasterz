@@ -1,4 +1,4 @@
-import {getLoadedPodcasts, getTopPodcasts} from '../itunes/podcasts.js';
+import {getLoadedPodcasts} from '../itunes/podcasts.js';
 
 const template = document.querySelector('#podcast-tile');
 
@@ -36,11 +36,7 @@ export const load = async () => {
 
 	// If we have podcast we don't load them for now, we will handle this better later
 	// with serviceworker plus better transitions
-	let podcasts = getLoadedPodcasts();
-	if (podcasts) return;
-
-	// If we don't have the podcast then we just go ahead and grab them and populate the section with them
-	podcasts = await getTopPodcasts();
+	const podcasts = await getLoadedPodcasts();
 	const fragment = podcasts.reduce(createTile, document.createDocumentFragment());
 
 	const list = document.querySelector('#home .podcast-list');

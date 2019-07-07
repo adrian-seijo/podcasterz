@@ -1,4 +1,5 @@
 import {getPodcastDetails} from '../itunes/podcasts.js';
+import {loadPodcastDetail} from './common.js';
 
 export const PATH = /^\/podcast\/(\d+)\/$/;
 export const ID = 'podcast';
@@ -6,21 +7,6 @@ export const SECTION = 'podcast';
 
 const template = document.querySelector('#episode-row');
 const dateFormatter = new Intl.DateTimeFormat();
-
-const loadPodcastDetail = (podcast) => {
-
-	const image = document.querySelector('aside img');
-	image.src = podcast.image;
-
-	const title = document.querySelector('aside h2');
-	title.textContent = podcast.title;
-
-	const author = document.querySelector('aside .author');
-	author.textContent = podcast.author;
-
-	const summary = document.querySelector('aside .summary');
-	summary.textContent = podcast.summary;
-};
 
 const loadEpisodeList = (podcast) => {
 	const episodeCount = document.querySelector('.episode-count');
@@ -59,9 +45,13 @@ export const load = async ({match, currentView}) => {
 		if (home) home.classList.remove('visible');
 
 		document.querySelector('section#podcast').classList.add('visible');
-	} else {
-		// TODO: Deal with navigations from an episode detail
 	}
+
+	const details = document.querySelector('#episode-details');
+	details.classList.remove('visible');
+
+	const list = document.querySelector('#episode-list');
+	list.classList.add('visible');
 
 	loadPodcastDetail(podcast);
 	loadEpisodeList(podcast);

@@ -7,8 +7,21 @@ const FEED_BASE_URL = '/.netlify/functions/feed?url=';
 const parser = new DOMParser();
 
 let podcasts = null;
+let podcast = null;
 
-export const getLoadedPodcasts = () => podcasts;
+export const getLoadedPodcasts = async () => {
+	if (!podcasts) {
+		await getTopPodcasts();
+	}
+	return podcasts;
+};
+
+export const getLoadedPodcast = async (id) => {
+	if (!podcast || !id !== podcast.id) {
+		await getPodcastDetails(id);
+	}
+	return podcast;
+};
 
 export const getTopPodcasts = async () => {
 	const res = await fetch(ITUNES_TOP_URL);
@@ -39,8 +52,12 @@ export const getPodcastDetails = async (id) => {
 
 	const doc = parser.parseFromString(body, 'text/xml');
 
-	return {
+	const result = {
 		id,
 		...getFeedData(doc)
 	};
+
+	podcast = result;
+
+	return result;
 };
