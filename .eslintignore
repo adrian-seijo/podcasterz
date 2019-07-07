@@ -1,3 +1,4 @@
+app/lib/views/index.js
 app/lib/views/home/index.js
 app/lib/views/podcast/index.js
 app/lib/views/episode/index.js
