@@ -3,10 +3,12 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>PodcasterZ</title>
+	<meta name="description" content="Are there really a lot of people named Dr. Hell? You could not have a name that shouted `Hey look, I'm evil` louder if you tried. — Sabrina on Dr. Hell, We Are Our Avatars" />
 	<meta name="theme-color" content="#4676b9" />
-	<meta name="viewport" content="with=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="/lib/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="shortcut icon" href="/assets/podcasterz.png" type="image/x-icon" />
+	<link rel="manifest" href="/manifest.json" />
+	<link rel="stylesheet" href="/lib/style.css" />
 </head>
 <body>
 	<main>
@@ -18,10 +20,7 @@
 
 		<section id="home">
 			<form action="/" method="get">
-				<label>
-					<span>Filter podcasts</span>
-					<input id="search" name="q" type="search" placeholder="Filter podcasts..." />
-				</label>
+				<input id="search" name="q" type="search" aria-label="Search podcast" placeholder="Filter podcasts..." />
 			</form>
 
 			<ul class="podcast-list"></ul>
