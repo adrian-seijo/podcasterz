@@ -338,6 +338,10 @@ table td:nth-child(3) {
 		border-bottom: 0;
 	}
 
+	#home {
+		padding: 0 20px;
+	}
+
 	aside {
 		display: flex;
 		margin-top: 60px;
