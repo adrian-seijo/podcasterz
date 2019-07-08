@@ -29,6 +29,7 @@ export const updateView = () => {
 
 document.body.addEventListener('click', (event) => {
 	if (!event.target.closest('a')) return;
+	if (event.target.target === '_blank') return;
 
 	event.preventDefault();
 
