@@ -20,7 +20,7 @@ const handler = async (event) => {
 	} catch (e) {
 		return {
 			statusCode: 500,
-			body: e
+			body: e.message
 		};
 	}
 };

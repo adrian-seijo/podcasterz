@@ -14,6 +14,8 @@ const {parse} = require('url');
  */
 const get = (url, options = {}) => new Promise((resolve, reject) => {
 
+	console.log(`Doing a request to "${url}"`);
+
 	const reqUrl = parse(url);
 
 	const {asJSON, ...config} = options;
@@ -27,6 +29,14 @@ const get = (url, options = {}) => new Promise((resolve, reject) => {
 	const useHttps = url.startsWith('https');
 
 	const req = (useHttps ? https : http).request(reqOptions, (res) => {
+
+		console.log(`Request to "${url}" answer with "${res.statusCode}"`);
+
+		if (res.statusCode >= 300 && res.statusCode <= 399) {
+			const {location} = res.headers;
+			get(location, options).then(resolve);
+			return;
+		}
 
 		if (res.statusCode !== 200) {
 			reject(res);
