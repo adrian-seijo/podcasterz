@@ -25,12 +25,14 @@ const renderRow = (podcast, fragment, episode) => {
 		{
 			selector: 'td:nth-child(2)',
 			attrs: {
+				dataset: {title: 'Date: '},
 				textContent: dateFormatter.format(episode.date)
 			}
 		},
 		{
 			selector: 'td:nth-child(3)',
 			attrs: {
+				dataset: {title: 'Duration: '},
 				textContent: episode.duration
 			}
 		}

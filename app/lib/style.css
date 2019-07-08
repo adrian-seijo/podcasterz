@@ -6,6 +6,10 @@
 	--border-radius: 4px;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 html,
 body {
 	font-family: Helvetica Neue, Arial;
@@ -245,6 +249,7 @@ table td:nth-child(3) {
 	box-shadow: var(--shadow);
 	height: fit-content;
 	padding: 20px;
+	margin-bottom: 20px;
 }
 
 #episode-details h3 {
@@ -287,6 +292,7 @@ table td:nth-child(3) {
 	aside img {
 		width: 200px;
 		padding: 0 20px 0 0;
+		height: auto;
 	}
 
 	aside > div {
@@ -322,5 +328,63 @@ table td:nth-child(3) {
 @media (max-width: 768px) {
 	main {
 		padding: 0;
+	}
+
+	main > header {
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	h1 {
+		border-bottom: 0;
+	}
+
+	aside {
+		display: flex;
+		margin-top: 60px;
+		flex-direction: column;
+	}
+
+	aside h2 {
+		border-top: 1px solid var(--border-color);
+		width: 100%;
+	}
+
+	aside h2 + p {
+		border-bottom: 1px solid var(--border-color);
+		width: 100%;
+	}
+
+	aside > div {
+		border-left: 0;
+		border-right: 0;
+		width: 100%;
+	}
+
+	aside img {
+		text-align: center;
+	}
+
+	th {
+		display: none;
+	}
+
+	tr {
+		display: block
+	}
+
+	td {
+		display: block;
+	}
+
+	td:nth-child(2) {
+		padding-bottom: 2px;
+	}
+
+	td:before {
+		content: attr(data-title);
+	}
+
+	td:nth-child(3) {
+		padding-top: 2px;
 	}
 }

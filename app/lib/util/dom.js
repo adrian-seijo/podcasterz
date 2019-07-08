@@ -14,7 +14,14 @@ export const updateElement = (selector, attrs, root = document) => {
 	elements.forEach((element) => {
 		Object.entries(attrs)
 			.forEach(([key, value]) => {
-				element[key] = typeof value === 'function' ? value(element) : value;
+				if (typeof value === 'function') {
+					element[key] = value(element);
+				} else if (key === 'dataset') {
+					Object.keys(value).forEach((prop) => element.dataset[prop] = value[prop]);
+				} else {
+					element[key] = value;
+				}
+
 			});
 	});
 };
