@@ -6,8 +6,14 @@ export const PATH = /^\/podcast\/(\d+)\/$/;
 export const ID = 'podcast';
 export const SECTION = 'podcast';
 
-export const enter = async ({match}) => {
+export const enter = async ({match, currentView}) => {
 	showSection(SECTION);
+
+	// If we come form home we reset the scroll to avoid showign the list in the middle
+	if (currentView && currentView.ID === 'home') {
+		window.scrollTo(0, 0);
+	}
+
 	document.querySelector('#episode-details').classList.remove('visible');
 	document.querySelector('#episode-list').classList.add('visible');
 

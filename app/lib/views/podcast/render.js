@@ -14,11 +14,13 @@ const renderRow = (podcast, fragment, episode) => {
 		title
 	} = episode;
 
+	const episodeUrl = '/podcast/' + encodeURIComponent(podcast.id) + '/episode/' + encodeURIComponent(id) + '/';
+
 	return appendTemplate(template, fragment, [
 		{
 			selector: 'a',
 			attrs: {
-				href: '/podcast/' + podcast.id + '/episode/' + id + '/',
+				href: episodeUrl,
 				textContent: title
 			}
 		},

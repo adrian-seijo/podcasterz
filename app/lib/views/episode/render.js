@@ -1,4 +1,4 @@
-
+import {showError} from '../../util/nav.js';
 import {updateElements, safeAppendHTML} from '../../util/dom.js';
 import {renderPodcastDetail} from '../common.js';
 
@@ -23,13 +23,19 @@ const renderEpisodeDetails = (episode) => {
 };
 
 const render = (podcast, episodesId) => {
+	window.scrollTo(0, 0);
 
-	const {episodes} = podcast;
-	const episode = episodes.find(({id}) => id === episodesId);
-	if (!episode) throw new Error('Episode not found');
+	try {
+		const {episodes} = podcast;
+		const episode = episodes.find(({id}) => id === episodesId);
+		if (!episode) throw new Error('Episode not found');
 
-	renderPodcastDetail(podcast);
-	renderEpisodeDetails(episode);
+		renderPodcastDetail(podcast);
+		renderEpisodeDetails(episode);
+	} catch (e) {
+		console.error(e);
+		showError();
+	}
 };
 
 export default render;

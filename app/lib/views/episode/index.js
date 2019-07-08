@@ -14,8 +14,8 @@ export const enter = async ({match}) => {
 	document.querySelector('#episode-details').classList.add('visible');
 	document.querySelector('#episode-list').classList.remove('visible');
 
-	const podcastId = match[1];
-	const episodesId = match[2];
+	const podcastId = decodeURIComponent(match[1]);
+	const episodesId = decodeURIComponent(match[2]);
 
 	const state = getState();
 
