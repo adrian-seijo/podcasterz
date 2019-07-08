@@ -10,3 +10,14 @@ export const showSection  = (id) => {
 	if (current) current.classList.remove('visible');
 	section.classList.add('visible');
 };
+
+export const showError = (text = 'Oops! Something failed 🙀') => {
+	const visible = document.querySelector(`section.visible`);
+	if (visible) visible.classList.remove('visible');
+
+	const title = document.querySelector('#error h2');
+	title.textContent = text;
+
+	const section = document.querySelector('#error');
+	section.classList.add('visible');
+};

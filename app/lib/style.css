@@ -88,16 +88,17 @@ section.visible {
 	display: block;
 }
 
-#notfound.visible {
+#error.visible {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
 }
 
-#notfound.visible h2 {
-	font-size: 3rem;
+#error.visible h2 {
+	font-size: 1.5rem;
 	color: #333;
+	text-transform: none;
 }
 
 .podcast-list {

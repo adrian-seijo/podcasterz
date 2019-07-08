@@ -1,30 +1,32 @@
+import {showError} from './util/nav.js';
 import views  from './views/index.js';
 
 let currentView = null;
 
 export const updateView = () => {
-	const {pathname} = window.location;
+	try {
+		const {pathname} = window.location;
 
-	let match;
-	const view = views.find(({PATH}) => {
-		match = pathname.match(PATH);
-		return match;
-	});
+		let match;
+		const view = views.find(({PATH}) => {
+			match = pathname.match(PATH);
+			return match;
+		});
 
-	if (!view) {
-		const visible = document.querySelector(`section.visible`);
-		if (visible) visible.classList.remove('visible');
+		if (!view) {
+			showError('404 Not found! 🤷‍♂️');
+			return;
+		}
 
-		const section = document.querySelector(`section#notfound`);
-		section.classList.add('visible');
-		return;
+		if (currentView && currentView.ID === view.ID) return;
+		if (currentView && currentView.leave) currentView.leave({match, view});
+
+		view.enter({match, currentView});
+		currentView = view;
+	} catch (e) {
+		console.error(e);
+		showError('Oops! Something failed');
 	}
-
-	if (currentView && currentView.ID === view.ID) return;
-	if (currentView && currentView.leave) currentView.leave({match, view});
-
-	view.enter({match, currentView});
-	currentView = view;
 };
 
 document.body.addEventListener('click', (event) => {
