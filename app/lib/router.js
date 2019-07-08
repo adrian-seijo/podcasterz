@@ -25,7 +25,7 @@ export const updateView = () => {
 		currentView = view;
 	} catch (e) {
 		console.error(e);
-		showError('Oops! Something failed');
+		showError();
 	}
 };
 

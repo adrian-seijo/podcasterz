@@ -18,6 +18,9 @@ export const showError = (text = 'Oops! Something failed 🙀') => {
 	const title = document.querySelector('#error h2');
 	title.textContent = text;
 
+	const small = document.querySelector('#error small');
+	small.textContent = 'check the console for details 🤫';
+
 	const section = document.querySelector('#error');
 	section.classList.add('visible');
 };
