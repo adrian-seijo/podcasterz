@@ -233,6 +233,7 @@ aside h2 + p {
 aside .summary {
 	padding: 10px 8px;
 	font-size: 0.9rem;
+	word-break: break-word;
 	color: var(--faded-text);
 }
 
