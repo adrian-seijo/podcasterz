@@ -3,7 +3,7 @@
 
 import {getState} from '../../actions/state.js';
 import {getTopPodcasts} from '../../actions/podcasts/index.js';
-import {showSection, showError} from '../../util/nav.js';
+import {showSection, showError, isLoading} from '../../util/nav.js';
 
 export const PATH = /^\/$/;
 export const ID = 'home';
@@ -11,6 +11,7 @@ export const SECTION = 'home';
 
 export const enter = async () => {
 	try {
+		isLoading(true);
 		showSection(SECTION);
 
 		const state = getState();
@@ -30,6 +31,8 @@ export const enter = async () => {
 	} catch (e) {
 		console.error(e);
 		showError();
+	} finally {
+		isLoading(false);
 	}
 };
 

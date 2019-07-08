@@ -1,6 +1,6 @@
 import {getState} from '../../actions/state.js';
 import {getPodcastDetails} from '../../actions/podcasts/index.js';
-import {showSection, showError} from '../../util/nav.js';
+import {showSection, showError, isLoading} from '../../util/nav.js';
 import render from './render.js';
 
 export const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
@@ -9,7 +9,7 @@ export const SECTION = 'podcast';
 
 export const enter = async ({match}) => {
 	try {
-
+		isLoading(true);
 		showSection(SECTION);
 
 		document.querySelector('#episode-details').classList.add('visible');
@@ -39,6 +39,8 @@ export const enter = async ({match}) => {
 	} catch (e) {
 		console.error(e);
 		showError();
+	} finally {
+		isLoading(false);
 	}
 };
 

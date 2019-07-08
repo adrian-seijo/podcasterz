@@ -1,6 +1,6 @@
 import {getState} from '../../actions/state.js';
 import {getPodcastDetails} from '../../actions/podcasts/index.js';
-import {showSection, showError} from '../../util/nav.js';
+import {showSection, showError, isLoading} from '../../util/nav.js';
 
 export const PATH = /^\/podcast\/(\d+)\/$/;
 export const ID = 'podcast';
@@ -8,6 +8,7 @@ export const SECTION = 'podcast';
 
 export const enter = async ({match, currentView}) => {
 	try {
+		isLoading(true);
 		showSection(SECTION);
 
 		// If we come form home we reset the scroll to avoid showign the list in the middle
@@ -38,6 +39,8 @@ export const enter = async ({match, currentView}) => {
 	} catch (e) {
 		console.error(e);
 		showError();
+	} finally {
+		isLoading(false);
 	}
 };
 

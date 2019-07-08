@@ -24,3 +24,7 @@ export const showError = (text = 'Oops! Something failed 🙀') => {
 	const section = document.querySelector('#error');
 	section.classList.add('visible');
 };
+
+export const isLoading = (value) => {
+	document.querySelector('main').classList.toggle('loading', value);
+};
