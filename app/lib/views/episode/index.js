@@ -7,9 +7,11 @@ export const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
 export const ID = 'episode';
 export const SECTION = 'podcast';
 
-export const enter = async ({match}) => {
+export const enter = async ({match, currentView}) => {
 	try {
-		isLoading(true);
+		if (!currentView || currentView.ID !== 'podcast') {
+			isLoading(true);
+		}
 		showSection(SECTION);
 
 		document.querySelector('#episode-details').classList.add('visible');
