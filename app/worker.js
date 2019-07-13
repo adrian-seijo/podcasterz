@@ -1,7 +1,7 @@
 
 console.log('I\'m a worker!');
 
-const ASSET_CACHE = 'asset-cache';
+const ASSET_CACHE = 'asset-cache-v2';
 
 const assets = [
 	'/index.html',
@@ -37,7 +37,7 @@ const handleAssetRequest = async (event) => {
 	const response = await caches.match(event.request);
 
 	if (response) return response;
-	return fetchAndCache(event.request);
+	// return fetchAndCache(event.request);
 };
 
 const resetAssetCache = async () => {
