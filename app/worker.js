@@ -18,20 +18,20 @@ const cacheAssets = async () => {
 	return cache.addAll(assets);
 };
 
-const fetchAndCache = async (request) => {
-	const response = await fetch(request);
-
-	if (!response || !response.ok) {
-		return response;
-	}
-
-	const resToCache = response.clone();
-
-	const cache = await caches.open(ASSET_CACHE);
-	cache.put(request, resToCache);
-
-	return response;
-};
+// const fetchAndCache = async (request) => {
+// 	const response = await fetch(request);
+//
+// 	if (!response || !response.ok) {
+// 		return response;
+// 	}
+//
+// 	const resToCache = response.clone();
+//
+// 	const cache = await caches.open(ASSET_CACHE);
+// 	cache.put(request, resToCache);
+//
+// 	return response;
+// };
 
 const handleAssetRequest = async (event) => {
 	const response = await caches.match(event.request);
