@@ -37,7 +37,7 @@ const handleAssetRequest = async (event) => {
 	const response = await caches.match(event.request);
 
 	if (response) return response;
-	// return fetchAndCache(event.request);
+	return fetch(event.request);
 };
 
 const resetAssetCache = async () => {
