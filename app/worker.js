@@ -1,5 +1,5 @@
 
-const ASSET_CACHE = 'asset-cache-v2';
+const ASSET_CACHE = 'asset-cache-v3';
 
 const assets = [
 	'/index.html',
