@@ -1,6 +1,4 @@
 
-console.log('I\'m a worker!');
-
 const ASSET_CACHE = 'asset-cache-v2';
 
 const assets = [
