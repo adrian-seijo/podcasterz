@@ -1,5 +1,5 @@
-import {appendTemplate, replaceContent, updateElement} from '../../util/dom.js';
-import {renderPodcastDetail} from '../common.js';
+import {appendTemplate, replaceContent, updateElement} from '../util/dom.js';
+import {renderPodcastDetail} from '../common/renderPodcastDetail.js';
 
 export const PATH = /^\/podcast\/(\d+)\/$/;
 export const ID = 'podcast';

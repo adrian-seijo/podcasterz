@@ -1,14 +1,17 @@
-const getLabelValue = (item) => {
-	return item && item.label ? item.label : item;
-};
+import {getDataFromElement} from '../util/dom.js';
 
-const getDataFromElement = (doc, selector, attribute = null) => {
-	const element = doc.querySelector(selector);
-	if (!element) return null;
-	if (!attribute) return element.textContent || null;
-	return element.getAttribute(attribute) || null;
-};
+/**
+ * Given an item object return its label property or the item itself if not present
+ * @param  {Object} item
+ * @return {Any}
+ */
+const getLabelValue = (item) => item && item.label ? item.label : item;
 
+/**
+ * Given an response object from itunes podcast api get all the data we need from it
+ * @param  {Object} entry
+ * @return {Object}
+ */
 export const formatPodcastEntry = (entry) => {
 	const {
 		id: {
@@ -43,6 +46,11 @@ export const formatPodcastEntry = (entry) => {
 	}, {});
 };
 
+/**
+ * Given an xml document get all the podcast data from it
+ * @param  {XMLDocument} feed
+ * @return {Object}
+ */
 export const getFeedData = (feed) => {
 
 	const episodes = Array.from(feed.querySelectorAll('item'))
@@ -68,11 +76,13 @@ export const getFeedData = (feed) => {
 		})
 		.sort((a, b) => b.date - a.date);
 
+	const image = getDataFromElement(feed, 'image url') || getDataFromElement(feed, '*|image', 'href');
+
 	const podcast = {
 		title: getDataFromElement(feed, 'title'),
 		author: getDataFromElement(feed, '*|author'),
 		summary: getDataFromElement(feed, '*|summary'),
-		image: getDataFromElement(feed, 'image url'),
+		image,
 		episodes
 	};
 

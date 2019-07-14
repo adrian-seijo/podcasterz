@@ -1,13 +1,11 @@
-import {getState} from '../../actions/state.js';
-import {getPodcastDetails} from '../../actions/podcasts/index.js';
-import {showSection, showError, isLoading} from '../../util/nav.js';
-import render from './render.js';
+import {getState} from '../state.js';
+import {getPodcastDetails} from '../podcast/actions/podcastDetails.js';
+import {showSection, showError, isLoading} from '../util/nav.js';
+const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
+const ID = 'episode';
+const SECTION = 'podcast';
 
-export const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
-export const ID = 'episode';
-export const SECTION = 'podcast';
-
-export const enter = async ({match, currentView}) => {
+const enter = async ({match, currentView}) => {
 	try {
 		if (!currentView || currentView.ID !== 'podcast') {
 			isLoading(true);
@@ -46,7 +44,15 @@ export const enter = async ({match, currentView}) => {
 	}
 };
 
-export const leave = () => {
+const leave = () => {
 	const audio = document.querySelector('audio');
 	if (!audio.paused) audio.pause();
+};
+
+export default {
+	PATH,
+	ID,
+	SECTION,
+	enter,
+	leave
 };

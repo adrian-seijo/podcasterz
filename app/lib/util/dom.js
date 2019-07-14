@@ -112,3 +112,10 @@ export const replaceContent = (selector, content) => {
 	list.innerHTML = '';
 	list.appendChild(content);
 };
+
+export const getDataFromElement = (doc, selector, attribute = null) => {
+	const element = doc.querySelector(selector);
+	if (!element) return null;
+	if (!attribute) return element.textContent || null;
+	return element.getAttribute(attribute) || null;
+};

@@ -1,4 +1,4 @@
-import {appendTemplate, replaceContent} from '../../util/dom.js';
+import {appendTemplate, replaceContent} from '../util/dom.js';
 
 const LIST_SELECTOR = '#home .podcast-list';
 const template = document.querySelector('#podcast-tile');

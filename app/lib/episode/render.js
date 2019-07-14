@@ -1,6 +1,6 @@
-import {showError} from '../../util/nav.js';
-import {updateElements, safeAppendHTML} from '../../util/dom.js';
-import {renderPodcastDetail} from '../common.js';
+import {showError} from '../util/nav.js';
+import {updateElements, safeAppendHTML} from '../util/dom.js';
+import {renderPodcastDetail} from '../common/renderPodcastDetail.js';
 
 export const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
 export const ID = 'episode';

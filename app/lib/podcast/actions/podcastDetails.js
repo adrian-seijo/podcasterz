@@ -1,12 +1,12 @@
-import {updateState} from '../state.js';
-import {getFeedData} from './format.js';
+import {updateState} from '../../state.js';
+import {getFeedData} from '../../common/format.js';
 
 const ITUNES_PODCAST_URL = '/.netlify/functions/podcast-details?id=';
 const FEED_BASE_URL = '/.netlify/functions/feed?url=';
 
 const parser = new DOMParser();
 
-const getPodcastDetails = async (id) => {
+export const getPodcastDetails = async (id) => {
 	if (!id) throw new Error('Missing id for getPodcastData');
 
 	const res = await fetch(ITUNES_PODCAST_URL + id);
@@ -30,5 +30,3 @@ const getPodcastDetails = async (id) => {
 
 	return result;
 };
-
-export default getPodcastDetails;

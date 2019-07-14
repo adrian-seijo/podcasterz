@@ -1,12 +1,12 @@
-import {getState} from '../../actions/state.js';
-import {getPodcastDetails} from '../../actions/podcasts/index.js';
-import {showSection, showError, isLoading} from '../../util/nav.js';
+import {getState} from '../state.js';
+import {getPodcastDetails} from './actions/podcastDetails.js';
+import {showSection, showError, isLoading} from '../util/nav.js';
 
-export const PATH = /^\/podcast\/(\d+)\/$/;
-export const ID = 'podcast';
-export const SECTION = 'podcast';
+const PATH = /^\/podcast\/(\d+)\/$/;
+const ID = 'podcast';
+const SECTION = 'podcast';
 
-export const enter = async ({match, currentView}) => {
+const enter = async ({match, currentView}) => {
 	try {
 		isLoading(true);
 		showSection(SECTION);
@@ -44,6 +44,14 @@ export const enter = async ({match, currentView}) => {
 	}
 };
 
-export const leave = () => {
+const leave = () => {
 	// Nothing to do yet
+};
+
+export default {
+	PATH,
+	ID,
+	SECTION,
+	enter,
+	leave
 };
