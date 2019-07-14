@@ -1,5 +1,5 @@
 
-const ASSET_CACHE = 'cache-v6';
+const CACHE_NAME = 'cache-v7';
 
 const assets = [
 	'/',
@@ -13,26 +13,28 @@ const assets = [
 	'/lib/style.css',
 	'/lib/main.js',
 	'/lib/state.js',
-	'/lib/common/format.js',
-	'/lib/common/renderPodcastDetail.js',
-	'/lib/home/index.js',
-	'/lib/home/render.js',
-	'/lib/home/actions/search.js',
-	'/lib/home/actions/topPodcasts.js',
-	'/lib/podcast/index.js',
-	'/lib/podcast/render.js',
-	'/lib/podcast/actions/podcastDetails.js',
+	'/lib/common/renderAside.js',
 	'/lib/episode/index.js',
 	'/lib/episode/render.js',
+	'/lib/episode/actions/index.js',
+	'/lib/episode/actions/getEpisodeDetails.js',
+	'/lib/home/index.js',
+	'/lib/home/render.js',
+	'/lib/home/actions/index.js',
+	'/lib/home/actions/updateSearch.js',
+	'/lib/home/actions/fetchTopPodcasts.js',
+	'/lib/home/actions/filterTopPodcasts.js',
+	'/lib/podcast/index.js',
+	'/lib/podcast/render.js',
+	'/lib/podcast/actions/index.js',
+	'/lib/podcast/actions/fetchPodcastDetails.js',
+	'/lib/util/debounce.js',
 	'/lib/util/dom.js',
 	'/lib/util/nav.js',
 ];
 
 const cacheInit = async () => {
-	// const {hostname} = self.location;
-	// if (hostname === 'localhost') return;
-
-	const cache = await caches.open(ASSET_CACHE);
+	const cache = await caches.open(CACHE_NAME);
 	return cache.addAll(assets);
 };
 
@@ -64,7 +66,7 @@ const fetchAndCache = async (request) => {
 
 	const resToCache = await copyResponse(response);
 
-	const cache = await caches.open(ASSET_CACHE);
+	const cache = await caches.open(CACHE_NAME);
 	cache.put(request, resToCache);
 
 	return response;
@@ -105,7 +107,7 @@ const deleteOldCaches = async () => {
 	const cacheNames = await caches.keys();
 
 	cacheNames
-		.filter((name) => name !== ASSET_CACHE)
+		.filter((name) => name !== CACHE_NAME)
 		.forEach((name) => caches.delete(name));
 };
 
