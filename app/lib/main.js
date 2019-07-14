@@ -1,4 +1,4 @@
-import {showError} from './util/nav.js';
+import {showError, showSection, isLoading} from './util/nav.js';
 import home from './home/index.js';
 import podcast from './podcast/index.js';
 import episode from './episode/index.js';
@@ -11,8 +11,11 @@ const views = [
 
 let currentView = null;
 
-export const updateView = () => {
+const setCurrentView = (view) => currentView = view;
+
+export const updateView = async () => {
 	try {
+		isLoading(true);
 		const {pathname} = window.location;
 
 		let match;
@@ -26,17 +29,17 @@ export const updateView = () => {
 			return;
 		}
 
-		if (currentView && currentView.ID === view.ID) {
-			if (view.update) view.update({match});
-			return;
-		}
+		if (currentView && currentView.ID === view.ID) return;
 		if (currentView && currentView.leave) currentView.leave({match, view});
 
-		view.enter({match, currentView});
-		currentView = view;
+		showSection(view.SECTION);
+		await view.enter({match, currentView});
+		setCurrentView(view);
 	} catch (e) {
 		console.error(e);
 		showError();
+	} finally {
+		isLoading(false);
 	}
 };
 

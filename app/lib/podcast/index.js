@@ -1,57 +1,33 @@
-import {getState} from '../state.js';
-import {getPodcastDetails} from './actions/podcastDetails.js';
-import {showSection, showError, isLoading} from '../util/nav.js';
+import {getState, onStateChange} from '../state.js';
+import {fetchPodcastDetails} from './actions/index.js';
 
-const PATH = /^\/podcast\/(\d+)\/$/;
-const ID = 'podcast';
-const SECTION = 'podcast';
+onStateChange(async (key, state) => {
+	if (key !== 'podcast') return;
+
+	const {renderPodcast} = await import('./render.js');
+	renderPodcast(state.podcast);
+});
 
 const enter = async ({match, currentView}) => {
-	try {
-		isLoading(true);
-		showSection(SECTION);
+	// If we come form home we reset the scroll to avoid showign the list in the middle
+	if (currentView && currentView.ID === 'home') {
+		window.scrollTo(0, 0);
+	}
 
-		// If we come form home we reset the scroll to avoid showign the list in the middle
-		if (currentView && currentView.ID === 'home') {
-			window.scrollTo(0, 0);
-		}
+	document.querySelector('#episode-details').classList.remove('visible');
+	document.querySelector('#episode-list').classList.add('visible');
 
-		document.querySelector('#episode-details').classList.remove('visible');
-		document.querySelector('#episode-list').classList.add('visible');
+	const id = match[1];
+	const {podcast} = getState();
 
-		const id = match[1];
-		const state = getState();
-
-		let podcast = state.podcast;
-
-		if (podcast && state.podcast.id === id) {
-			const {default: render} = await import('./render.js');
-			await render(podcast);
-		} else {
-
-			const [podcasts, {default: render}] = await Promise.all([
-				getPodcastDetails(id),
-				import('./render.js')
-			]);
-
-			await render(podcasts);
-		}
-	} catch (e) {
-		console.error(e);
-		showError();
-	} finally {
-		isLoading(false);
+	if (!podcast || podcast.id !== id) {
+		await fetchPodcastDetails(id);
 	}
 };
 
-const leave = () => {
-	// Nothing to do yet
-};
-
 export default {
-	PATH,
-	ID,
-	SECTION,
+	PATH: /^\/podcast\/(\d+)\/$/,
+	ID: 'podcast',
+	SECTION: 'podcast',
 	enter,
-	leave
 };

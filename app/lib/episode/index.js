@@ -1,46 +1,26 @@
-import {getState} from '../state.js';
-import {getPodcastDetails} from '../podcast/actions/podcastDetails.js';
-import {showSection, showError, isLoading} from '../util/nav.js';
-const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
-const ID = 'episode';
-const SECTION = 'podcast';
+import {getState, onStateChange} from '../state.js';
+import {getEpisodeDetails} from './actions/index.js';
 
-const enter = async ({match, currentView}) => {
-	try {
-		if (!currentView || currentView.ID !== 'podcast') {
-			isLoading(true);
-		}
-		showSection(SECTION);
+onStateChange(async (key, state) => {
+	if (key !== 'episode') return;
 
-		document.querySelector('#episode-details').classList.add('visible');
-		document.querySelector('#episode-list').classList.remove('visible');
+	const {renderEpisode} = await import('./render.js');
+	const {podcast, episode} = state;
+	renderEpisode(podcast, episode);
+});
 
-		const podcastId = decodeURIComponent(match[1]);
-		const episodesId = decodeURIComponent(match[2]);
+const enter = async ({match}) => {
 
-		const state = getState();
+	document.querySelector('#episode-details').classList.add('visible');
+	document.querySelector('#episode-list').classList.remove('visible');
 
-		let podcast = state.podcast;
+	const podcastId = decodeURIComponent(match[1]);
+	const episodesId = decodeURIComponent(match[2]);
 
-		if (podcast && state.podcast.id === podcastId) {
-			const {default: render} = await import('./render.js');
-			await render(podcast, episodesId);
-		} else {
+	const {podcast, episode} = getState();
 
-			const [podcast, {default: render}] = await Promise.all([
-				getPodcastDetails(podcastId),
-				import('./render.js')
-			]);
-
-			if (!podcast) throw new Error('Podcast not found');
-
-			await render(podcast, episodesId);
-		}
-	} catch (e) {
-		console.error(e);
-		showError();
-	} finally {
-		isLoading(false);
+	if (!podcast || podcast.id !== podcastId || !episode || episode.id !== episodesId) {
+		await getEpisodeDetails(podcastId, episodesId);
 	}
 };
 
@@ -50,9 +30,9 @@ const leave = () => {
 };
 
 export default {
-	PATH,
-	ID,
-	SECTION,
+	PATH: /^\/podcast\/(\d+)\/episode\/(.+)\/$/,
+	ID: 'episode',
+	SECTION: 'podcast',
 	enter,
 	leave
 };

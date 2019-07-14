@@ -1,13 +1,15 @@
 import {appendTemplate, replaceContent, updateElement} from '../util/dom.js';
-import {renderPodcastDetail} from '../common/renderPodcastDetail.js';
-
-export const PATH = /^\/podcast\/(\d+)\/$/;
-export const ID = 'podcast';
-export const SECTION = 'podcast';
+import {renderAside} from '../common/renderAside.js';
 
 const template = document.querySelector('#episode-row');
 const dateFormatter = new Intl.DateTimeFormat();
 
+/**
+ * Render each row of the podcast episode list
+ * @param  {Object} podcast
+ * @param  {DocumentFragment} fragment
+ * @param  {Object} episode
+ */
 const renderRow = (podcast, fragment, episode) => {
 	const {
 		id,
@@ -41,9 +43,13 @@ const renderRow = (podcast, fragment, episode) => {
 	]);
 };
 
-const render = (podcast) => {
+/**
+ * Render the given pdocast details by updating the aside and the episode list
+ * @param  {Object} podcast
+ */
+export const renderPodcast = (podcast) => {
 
-	renderPodcastDetail(podcast);
+	renderAside(podcast);
 
 	updateElement('.episode-count', {textContent: podcast.episodes.length});
 
@@ -52,5 +58,3 @@ const render = (podcast) => {
 
 	replaceContent('table > tbody', fragment);
 };
-
-export default render;

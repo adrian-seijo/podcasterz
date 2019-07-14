@@ -45,13 +45,23 @@ const renderTile = (fragment, data) => {
 };
 
 /**
- * Method that render the home view
+ * Method that render the home podcast list
  * @param  {Array.<Object>} 	podcasts
  */
-const render = (podcasts) => {
+export const renderList = (podcasts) => {
 	const frag = document.createDocumentFragment();
-	podcasts.reduce(renderTile, frag);
+	podcasts
+		.filter(({visible}) => visible)
+		.reduce(renderTile, frag);
+
 	replaceContent(LIST_SELECTOR, frag);
 };
 
-export default render;
+/**
+ * Method that render the search field by updating its value
+ * @param  {String} value
+ */
+export const renderSearch = (value) => {
+	const search = document.querySelector('#search');
+	search.value = value;
+};

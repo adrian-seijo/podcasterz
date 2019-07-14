@@ -4,7 +4,7 @@ import {updateElements} from '../util/dom.js';
  * Given a podcast update the aside with its details
  * @param  {Object} podcast
  */
-export const renderPodcastDetail = (podcast) => {
+export const renderAside = (podcast) => {
 
 	const {
 		image,

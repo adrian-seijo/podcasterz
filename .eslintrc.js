@@ -8,6 +8,11 @@ module.exports = {
         'plugin:import/errors',
         'plugin:import/warnings',
     ],
+	'plugins': [
+		'import',
+		'ava'
+	],
+	'parser': 'babel-eslint',
     'parserOptions': {
         'ecmaVersion': 2018,
         'sourceType': 'module',
@@ -94,7 +99,7 @@ module.exports = {
         'import/no-mutable-exports': 'error',
         'import/first': 'error',
         'import/no-duplicates': 'error',
-        'import/extensions': ['error', {'js': 'always'}],
+        'import/extensions': ['error', {'js': 'ignorePackages'}],
         'import/order': 'error',
         'import/newline-after-import': 'error',
         'import/max-dependencies': ['error', {'max': 20}],

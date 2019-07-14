@@ -1,50 +1,10 @@
-import {getDataFromElement} from '../util/dom.js';
+import {updateState} from '../../state.js';
+import {getDataFromElement} from '../../util/dom.js';
 
-/**
- * Given an item object return its label property or the item itself if not present
- * @param  {Object} item
- * @return {Any}
- */
-const getLabelValue = (item) => item && item.label ? item.label : item;
+const ITUNES_PODCAST_URL = '/.netlify/functions/podcast-details?id=';
+const FEED_BASE_URL = '/.netlify/functions/feed?url=';
 
-/**
- * Given an response object from itunes podcast api get all the data we need from it
- * @param  {Object} entry
- * @return {Object}
- */
-export const formatPodcastEntry = (entry) => {
-	const {
-		id: {
-			attributes: {
-				'im:id': id
-			}
-		},
-		title,
-		summary,
-		'im:artist': author,
-		'im:image': images
-	} = entry;
-
-	const image = images.reduce((result, {attributes, label}) => {
-		const height = parseInt(attributes.height, 10);
-		if (!height || height < result.height) return result;
-		return {
-			label,
-			height
-		};
-	}, {});
-
-	return Object.entries({
-		id,
-		title,
-		summary,
-		author,
-		image
-	}).reduce((res, [key, value]) => {
-		res[key] = getLabelValue(value);
-		return res;
-	}, {});
-};
+const parser = new DOMParser();
 
 /**
  * Given an xml document get all the podcast data from it
@@ -87,4 +47,33 @@ export const getFeedData = (feed) => {
 	};
 
 	return podcast;
+};
+
+/**
+ * Given a itunes podcast id fetch its details and parse them ebfore adding them
+ * to the state
+ * @async
+ * @param  {Number}
+ */
+export const fetchPodcastDetails = async (id) => {
+	if (!id) throw new Error('Missing id for getPodcastData');
+
+	const res = await fetch(ITUNES_PODCAST_URL + id);
+	const {resultCount, results} = await res.json();
+
+	if (resultCount <= 0 || results.length <= 0) throw new Error('Podcast details not found');
+
+	const [{feedUrl}] = results;
+
+	const feedData = await fetch(FEED_BASE_URL + encodeURIComponent(feedUrl));
+	const body = await feedData.text();
+
+	const doc = parser.parseFromString(body, 'text/xml');
+
+	const result = {
+		id,
+		...getFeedData(doc)
+	};
+
+	updateState('podcast', result);
 };

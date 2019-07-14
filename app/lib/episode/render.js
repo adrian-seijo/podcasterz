@@ -1,6 +1,5 @@
-import {showError} from '../util/nav.js';
 import {updateElements, safeAppendHTML} from '../util/dom.js';
-import {renderPodcastDetail} from '../common/renderPodcastDetail.js';
+import {renderAside} from '../common/renderAside.js';
 
 export const PATH = /^\/podcast\/(\d+)\/episode\/(.+)\/$/;
 export const ID = 'episode';
@@ -22,20 +21,9 @@ const renderEpisodeDetails = (episode) => {
 	safeAppendHTML('#episode-summary', summary);
 };
 
-const render = (podcast, episodesId) => {
+export const renderEpisode = (podcast, episode) => {
 	window.scrollTo(0, 0);
 
-	try {
-		const {episodes} = podcast;
-		const episode = episodes.find(({id}) => id === episodesId);
-		if (!episode) throw new Error('Episode not found');
-
-		renderPodcastDetail(podcast);
-		renderEpisodeDetails(episode);
-	} catch (e) {
-		console.error(e);
-		showError();
-	}
+	renderAside(podcast);
+	renderEpisodeDetails(episode);
 };
-
-export default render;
