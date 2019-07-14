@@ -50,10 +50,13 @@ const renderTile = (fragment, data) => {
  */
 export const renderList = (podcasts) => {
 	const frag = document.createDocumentFragment();
-	podcasts
-		.filter(({visible}) => visible)
-		.reduce(renderTile, frag);
 
+	const visiblePodcasts = podcasts.filter(({visible}) => visible);
+
+	const searchCount = document.querySelector('#search-count');
+	searchCount.textContent = visiblePodcasts.length;
+
+	visiblePodcasts.reduce(renderTile, frag);
 	replaceContent(LIST_SELECTOR, frag);
 };
 
