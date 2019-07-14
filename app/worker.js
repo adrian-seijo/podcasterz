@@ -64,12 +64,12 @@ const fetchAndCache = async (request) => {
 		return response;
 	}
 
-	const resToCache = await copyResponse(response);
+	const updateResponse = await copyResponse(response);
 
 	const cache = await caches.open(CACHE_NAME);
-	cache.put(request, resToCache);
+	cache.put(request, updateResponse.clone());
 
-	return response;
+	return updateResponse;
 };
 
 const isOlderThanADay = (date) => {
