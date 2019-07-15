@@ -13,8 +13,17 @@ const dateFormatter = new Intl.DateTimeFormat();
 const renderRow = (podcast, fragment, episode) => {
 	const {
 		id,
-		title
+		title,
+		date,
+		duration
 	} = episode;
+
+	let durationText = duration || '--';
+	if (duration && !duration.includes(':')) {
+		const mins = duration / 60;
+		const minsRound = Math.floor(mins);
+		durationText = `${minsRound}:${Math.ceil((mins - minsRound) * 60)}`;
+	}
 
 	const episodeUrl = '/podcast/' + encodeURIComponent(podcast.id) + '/episode/' + encodeURIComponent(id) + '/';
 
@@ -30,14 +39,14 @@ const renderRow = (podcast, fragment, episode) => {
 			selector: 'td:nth-child(2)',
 			attrs: {
 				dataset: {title: 'Date: '},
-				textContent: dateFormatter.format(episode.date)
+				textContent: dateFormatter.format(date)
 			}
 		},
 		{
 			selector: 'td:nth-child(3)',
 			attrs: {
 				dataset: {title: 'Duration: '},
-				textContent: episode.duration
+				textContent: durationText
 			}
 		}
 	]);
