@@ -15,8 +15,11 @@ export const renderAside = (podcast) => {
 
 	updateElements([
 		{selector: 'aside img', attrs: {src: image, alt: title + ' logo'}},
-		{selector: 'aside h2', attrs: {textContent: title}},
+		{selector: 'aside h2 a', attrs: {
+			href: '/podcast/' + podcast.id + '/',
+			textContent: title
+		}},
 		{selector: 'aside .author', attrs: {textContent: author}},
-		{selector: 'aside .summary', attrs: {textContent: summary}},
+		{selector: 'aside #podcast-summary', attrs: {textContent: summary}},
 	]);
 };
