@@ -19,6 +19,7 @@ export const getFeedData = (feed) => {
 			const id = getDataFromElement(item, 'guid');
 			const title = getDataFromElement(item, 'title');
 			const summary = getDataFromElement(item, 'summary');
+			const description = getDataFromElement(item, 'description');
 			const episode = getDataFromElement(item, '*|episode');
 			const duration = getDataFromElement(item, '*|duration');
 			const date = getDataFromElement(item, 'pubDate');
@@ -27,7 +28,7 @@ export const getFeedData = (feed) => {
 			return {
 				id,
 				title,
-				summary,
+				summary: summary || description,
 				episode,
 				duration,
 				date: date ? new Date(date) : null,
