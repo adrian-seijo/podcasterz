@@ -6,7 +6,8 @@
 	"scripts": {
 		"lint": "eslint ./app",
 		"lambdas": "netlify-lambda build src",
-		"build": "npm run lint",
+		"build": "npm run lint && npm t",
+		"test": "ava",
 		"start": "netlify dev"
 	},
 	"repository": {
