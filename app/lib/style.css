@@ -383,9 +383,11 @@ table td:nth-child(3) {
 		height: auto;
 	}
 
-	aside > div {
+	aside .podcast-name {
+		border-bottom: 0;
 		border-left: var(--thin-border);
 		border-right: var(--thin-border);
+		border-top: 0;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
@@ -394,16 +396,11 @@ table td:nth-child(3) {
 		height: 100%;
 	}
 
-	aside h2 {
-		border-top: 0;
-	}
-
-	aside h2 + p {
-		border-bottom: 0;
-	}
-
 	aside .summary {
 		padding: 0 0 0 20px;
+	}
+
+	aside #podcast-summary {
 		max-height: 150px;
 		overflow-y: scroll;
 		overflow-x: hidden;
@@ -440,6 +437,7 @@ table td:nth-child(3) {
 	aside h2 {
 		border-top: var(--thin-border);
 		width: 100%;
+		padding-top: 10px;
 	}
 
 	aside h2 + p {
@@ -447,7 +445,7 @@ table td:nth-child(3) {
 		width: 100%;
 	}
 
-	aside > div {
+	aside .podcast-name {
 		border-left: 0;
 		border-right: 0;
 		width: 100%;
@@ -469,15 +467,21 @@ table td:nth-child(3) {
 		display: block;
 	}
 
-	td:nth-child(2) {
-		padding-bottom: 2px;
+	td:nth-child(2),
+	td:nth-child(3) {
+		font-size: var(--small-font-size);
+		padding: 2px 10px;
+	}
+
+	td:nth-child(3) {
+		padding-bottom: 8px;
 	}
 
 	td:before {
 		content: attr(data-title);
 	}
 
-	td:nth-child(3) {
-		padding-top: 2px;
+	td:nth-child(1):before {
+		display: none;
 	}
 }
