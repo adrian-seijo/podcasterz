@@ -15,3 +15,7 @@ In order to run the local the project locally:
 $ npm ci
 $ npm start
 ```
+
+Then the app will be accesible in `http://localhost:8888/`.
+
+**Please note that the service worker will be disabled in the local version fo the app in order to facilitate the development** In order to test the request caching please check the live site or change the `app/lib/bootstrap.js` file to not ignore localhost.
