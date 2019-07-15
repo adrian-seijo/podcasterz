@@ -41,7 +41,8 @@ export const safeAppendHTML = (selector, content) => {
 
 	const element = document.querySelector(selector);
 	element.innerHTML = '';
-	element.append(doc.body);
+	Array.from(doc.body.childNodes)
+		.forEach((node) => element.append(node));
 };
 
 /**

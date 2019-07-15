@@ -4,6 +4,19 @@ import {renderAside} from '../common/renderAside.js';
 const template = document.querySelector('#episode-row');
 const dateFormatter = new Intl.DateTimeFormat();
 
+const formatDuration = (duration) => {
+
+	let result = duration || '--';
+	if (!duration || duration.includes(':')) return result;
+
+	const timeInMins = duration / 60;
+	const mins = Math.floor(timeInMins);
+	const seconds = Math.ceil((timeInMins - mins) * 60);
+	result = `${String(mins).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+	return result;
+};
+
 /**
  * Render each row of the podcast episode list
  * @param  {Object} podcast
@@ -17,13 +30,6 @@ const renderRow = (podcast, fragment, episode) => {
 		date,
 		duration
 	} = episode;
-
-	let durationText = duration || '--';
-	if (duration && !duration.includes(':')) {
-		const mins = duration / 60;
-		const minsRound = Math.floor(mins);
-		durationText = `${minsRound}:${Math.ceil((mins - minsRound) * 60)}`;
-	}
 
 	const episodeUrl = '/podcast/' + encodeURIComponent(podcast.id) + '/episode/' + encodeURIComponent(id) + '/';
 
@@ -46,7 +52,7 @@ const renderRow = (podcast, fragment, episode) => {
 			selector: 'td:nth-child(3)',
 			attrs: {
 				dataset: {title: 'Duration: '},
-				textContent: durationText
+				textContent: formatDuration(duration)
 			}
 		}
 	]);
