@@ -4,7 +4,7 @@
 
 ## Live site
 
-The app is currently live, with the latest changes in master, in [https://podcasterz.netlify.com/](https://podcasterz.netlify.com/).
+The app is currently live, with the latest changes in master, in [https://podcasterz.netlify.app/](https://podcasterz.netlify.app/).
 
 
 ## Run local instance
