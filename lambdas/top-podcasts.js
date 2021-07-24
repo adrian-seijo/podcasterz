@@ -1,5 +1,5 @@
 /* eslint-env node */
-const get = require('../util/get');
+const get = require('./util/get');
 
 const ITUNES_URL = 'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json';
 

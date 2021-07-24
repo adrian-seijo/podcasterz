@@ -1,5 +1,5 @@
 /* eslint-env node */
-const get = require('../util/get');
+const get = require('./util/get');
 
 const handler = async (event) => {
 

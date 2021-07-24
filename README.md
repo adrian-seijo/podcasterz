@@ -26,3 +26,21 @@ It uses the Netlify dev server to run the lambda and the static server locally a
 
 **Please note that the service worker will be disabled in the local version fo the app in order to facilitate the development**
 In order to test the request caching please check the live site or change the `app/lib/bootstrap.js` file to not ignore localhost.
+
+
+## Other scripts
+
+On top of start the repo has both a `lint` and a `test` script used to do eslint and ava tests on the code. They are both invoked when `build` runs on netlify and used to validate the code before it gets deployed on the live site.
+
+It also includes a `lambdas` one that will use `netlify-lambda` to transpilte the lambda code as Netlify does on their servers.
+
+
+## Project structure
+
+The top level folder structure includes:
+
+- **app** - This is where the main code for the web app lives, all the UI and worker code is in there.
+
+- **lambdas** - This is where the code for the lmabdas is which is effectively a series of little proxy functions that fetch the data for the app.
+
+- **test** - This is where any integration or e2e tests will be when done plus any test utility needed for those or the unit ones.
