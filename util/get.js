@@ -32,12 +32,14 @@ const get = (url, options = {}) => new Promise((resolve, reject) => {
 
 		console.log(`Request to "${url}" answer with "${res.statusCode}"`);
 
+		// TODO: Counte redirections and stop at some point to avoid infinite loops
 		if (res.statusCode >= 300 && res.statusCode <= 399) {
 			const {location} = res.headers;
 			get(location, options).then(resolve);
 			return;
 		}
 
+		// TODO: This should probably handle more error codes in case we find some corner cases
 		if (res.statusCode !== 200) {
 			reject(res);
 			return;
