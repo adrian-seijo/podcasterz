@@ -30,9 +30,6 @@
 		"netlify-cli": "^5.2.0",
 		"sinon": "^11.1.1"
 	},
-	"dependencies": {
-		"netlify-lambda": "^2.0.11"
-	},
 	"ava": {
 		"files": [
 			"app/lib/**/*.spec.js"
