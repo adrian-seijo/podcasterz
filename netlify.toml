@@ -17,4 +17,4 @@
 	status = 200
 
 [build]
-  functions = "lambdas"
+  functions = "functions"
